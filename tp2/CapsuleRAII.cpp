@@ -61,10 +61,54 @@ public:
   // D�claration fonction ext�rieure amie
   friend std::ostream & operator << (std::ostream & os, const CapsuleRAII & lc);
 
-private:
+protected:
   int* ptr;
 
 };
+
+
+class LaClasseSpecialisee : public CapsuleRAII {
+
+public:
+
+  /* !!! ATTENTION !!!
+  Comme LaClasseSpecialisee herite de CapsuleRAII,
+  quand on cree une instance de la classe derivee,
+  les donnees membres vont etre initialises d'abord.
+  Si dans la liste d'initialisation d'un constructeur
+  de la classe derivee, on ne specifie pas un constructeur
+  de la classe de base a utiliser, alors le constructeur par defaut
+  sera utlise pour initialiser la partie Base de Derivee.
+  */
+
+  LaClasseSpecialisee() {
+    std::cout << "LaClasseSpecialisee::LaClasseSpecialisee()\n";
+  }
+
+  // Constructeur par copie
+  // on utilise l'upcast implicite dans la liste d'init
+  // si le constr par copie de base n'est pas explicitement specifie,
+  // alors c'est le constructeur par defaut de base qui serait utilise.
+  LaClasseSpecialisee(const LaClasseSpecialisee& c) : CapsuleRAII(c) {
+    std::cout << "LaClasseSpecialisee::LaClasseSpecialisee(const LaClasseSpecialisee& c)\n";
+  }
+
+  ~LaClasseSpecialisee() {
+    std::cout << "LaClasseSpecialisee::~LaClasseSpecialisee()\n";
+  }
+
+  const LaClasseSpecialisee & operator=(const LaClasseSpecialisee & c) {
+    std::cout << "LaClasseSpecialisee::operator=(const LaClasseSpecialisee & c)\n";
+    return *this;
+  }
+
+  const LaClasseSpecialisee & operator=(LaClasseSpecialisee && c) {
+    std::cout << "LaClasseSpecialisee::operator=(LaClasseSpecialisee && c)\n";
+    return *this;
+  }
+
+};
+
 
 CapsuleRAII F(CapsuleRAII vv) {
   std::cout << " in F \n";
@@ -228,7 +272,16 @@ int main() {
   delete pc;
   std::cout << std::endl;
 
-  std::cout << "Avant de sortir du main() ... \n";
+
+  std::cout << "\n========== TP2 ==========\n";
+
+  LaClasseSpecialisee spec;
+  std::cout << std::endl;
+
+  LaClasseSpecialisee spec2(spec);
+  std::cout << std::endl;
+
+  std::cout << "\nAvant de sortir du main() ... \n";
   
   return 0; 
 }
