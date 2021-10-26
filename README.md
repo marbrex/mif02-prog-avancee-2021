@@ -1,7 +1,7 @@
 # mif02-prog-avancee-2021
 
 * [x] **TP1** Constructeurs, destructeurs, temporaires et conversions.
-* [ ] **TP2** Capsule RAII, déplacement, affectation des classes dérivées, upcast et downcast, écriture d'une classe String.
+* [x] **TP2** Capsule RAII, déplacement, affectation des classes dérivées, upcast et downcast, écriture d'une classe String.
 > Useful commands:
 > - ```g++ -fno-elide-constructors -Wall -std=c++11 -ggdb -o exec CapsuleRAII.cpp```\
 The **-ggdb** option of g++ for debugging with Valgrind. With that option Valgrind will show the exact lines where a leak happened.
