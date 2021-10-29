@@ -1,0 +1,7 @@
+# c/c++ compilation files
+*.i
+*.s
+*.o
+
+# c/c++ output files on linux
+*.out
